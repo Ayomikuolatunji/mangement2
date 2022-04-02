@@ -4,13 +4,15 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const errorController = require('./controllers/error');
 const app = express();
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
+const User=require("./models/user");
 
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-const adminRoutes = require('./routes/admin');
-const shopRoutes = require('./routes/shop');
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -38,8 +40,15 @@ const server=async()=>{
          useUnifiedTopology: true 
        }
      )
-     .then(con=>{
-       console.log("connected")
+     .then(users=>{
+       const user=new User({
+         name:"max",
+         email:"max@gmail.com",
+         cart:{
+           items:[]
+         }
+       })
+      
      })
      .then(result => {
        app.listen(5000,()=>{
