@@ -4,7 +4,6 @@ const Order = require('../models/order');
 exports.getProducts = (req, res, next) => {
   Product.find()
     .then(products => {
-      console.log(products);
       res.render('shop/product-list', {
         prods: products,
         pageTitle: 'All Products',
@@ -88,10 +87,15 @@ exports.postOrder = (req, res, next) => {
       const products = user.cart.items.map(i => {
         return { quantity: i.quantity, product: { ...i.productId._doc } };
       });
+      const totalPrice=user.items.reduce((prev,next)=>{
+        return prev.price + next.price
+      },0)
+      console.log(totalPrice)
       const order = new Order({
         user: {
           name: req.user.name,
-          userId: req.user
+          userId: req.user,
+          totalPrice:totalPrice
         },
         products: products
       });
