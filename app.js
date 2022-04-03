@@ -18,9 +18,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-  User.findById('6248e30588942a75578b46f0')
+  User.findById('62498b0ecadafc221f48cbe6')
     .then(user => {
-      req.user = User;
+      req.user = user;
       next();
     })
     .catch(err => console.log(err));
@@ -57,7 +57,7 @@ const server=async()=>{
       console.log("connected")
      })
      .then(result => {
-       app.listen(5000,()=>{
+       app.listen(3000,()=>{
          console.log("running on localhost 3000")
        });
      })

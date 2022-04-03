@@ -17,12 +17,13 @@ exports.postAddProduct = (req, res, next) => {
     title:title,
     price:price,
     description:description,
-    imageUrl:imageUrl
+    imageUrl:imageUrl,
+    userId:req.user._id
   });
   product
     .save()
     .then(result => {
-      // console.log(result);
+      console.log(result);
       console.log('Created Product');
       res.redirect('/admin/products');
     })
@@ -76,7 +77,8 @@ exports.postEditProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  Product.find()
+  Product.find({})
+    .populate("userId")
     .then(products => {
       res.render('admin/products', {
         prods: products,
