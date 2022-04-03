@@ -18,7 +18,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
   User.findById('62498b0ecadafc221f48cbe6')
     .then(user => {
-      console.log(user)
       req.user = user;
       next();
     })
@@ -29,8 +28,8 @@ app.use(shopRoutes);
 app.use(errorController.get404);
 
 
-const server=async()=>{
-     await mongoose
+const server=()=>{
+     mongoose
      .connect(
        'mongodb+srv://mongoose:john123@cluster0.xcjno.mongodb.net/myMongooseDatabase?retryWrites=true&w=majority',{
          useNewUrlParser: true,

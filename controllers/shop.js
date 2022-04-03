@@ -85,17 +85,13 @@ exports.postOrder = (req, res, next) => {
     .execPopulate()
     .then(user => {
       const products = user.cart.items.map(i => {
-        return { quantity: i.quantity, product: { ...i.productId._doc } };
+        return { quantity: i.quantity, product: { ...i.productId._doc,}};
       });
-      const totalPrice=user.items.reduce((prev,next)=>{
-        return prev.price + next.price
-      },0)
       console.log(totalPrice)
       const order = new Order({
         user: {
           name: req.user.name,
           userId: req.user,
-          totalPrice:totalPrice
         },
         products: products
       });
