@@ -20,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
   User.findById('62498b0ecadafc221f48cbe6')
     .then(user => {
+      console.log(user)
       req.user = user;
       next();
     })
