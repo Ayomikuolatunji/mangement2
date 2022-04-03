@@ -13,10 +13,8 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use((req, res, next) => {
   User.findById('62498b0ecadafc221f48cbe6')
     .then(user => {
@@ -26,10 +24,8 @@ app.use((req, res, next) => {
     })
     .catch(err => console.log(err));
 });
-
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
-
 app.use(errorController.get404);
 
 
@@ -58,7 +54,7 @@ const server=async()=>{
       console.log("connected")
      })
      .then(result => {
-       app.listen(3000,()=>{
+       app.listen(5000,()=>{
          console.log("running on localhost 3000")
        });
      })
